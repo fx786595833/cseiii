@@ -23,7 +23,7 @@ int num = Integer.parseInt(request.getAttribute("number") + "");
 <div class="message">教学支持系统</div>
 <div align=right style="font-size: 16px">
 	   欢迎你:<%=user%>;
-	<a style="color:#ff0000;font-size: 16px" href="">退出!</a>
+	<a style="color:#ff0000;font-size: 16px" href="sign_in">退出!</a>
 </div>
 <div id="nav">
   <ul>

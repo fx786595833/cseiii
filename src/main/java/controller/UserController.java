@@ -77,13 +77,13 @@ public class UserController {
 		if (result.equals("username_sid_failed")) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print("<script language=\"javascript\">alert('用户名或学号已被注册,请直接登录!');window.location.href='/TSS-SpringMVC/login.jsp'</script>");
-			return null;
+			out.print("<script language=\"javascript\">alert('用户名或学号已被注册,请直接登录!')</script>");
+			return "forward:/register-turn";
 		} else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print("<script language=\"javascript\">alert('注册成功,请登录!');window.location.href='/TSS-SpringMVC/login.jsp'</script>");
-			return null;
+			out.print("<script language=\"javascript\">alert('注册成功,请登录!')</script>");
+			return "forward:/sign_in";
 		}
 	}
 

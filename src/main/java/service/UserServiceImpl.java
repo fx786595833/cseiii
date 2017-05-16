@@ -21,11 +21,12 @@ public class UserServiceImpl implements UserService {
 	private UserDao userDao;
 	@Autowired
 	private GroupDao groupDao;
-
+    
+	//验证用户信息
 	public boolean checkUserInfo(User user) {
 		return userDao.checkUserInfo(user);
 	}
-
+    //注册新用户
 	public String addUser(User user) {
 		boolean isGroupExist = groupDao.isGroupExist(user.getGid());
 		if (!isGroupExist) {
@@ -65,7 +66,8 @@ public class UserServiceImpl implements UserService {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+	
+    //登录成功，根据用户名获取用户信息
 	public User getUserInfo(String username) {
 		return userDao.getUserInfo(username);
 	}

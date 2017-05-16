@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -13,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import service.GroupService;
 import service.UserService;
 import bean.User;
 
@@ -21,6 +23,8 @@ public class UserController {
 	private static final Log logger = LogFactory.getLog(UserController.class);
 	@Autowired
 	private UserService service;
+	@Autowired
+	GroupService groupService;
 
 	@RequestMapping(value = {"","sign_in"})
 	public String signIn(Model model) {
@@ -29,61 +33,70 @@ public class UserController {
 		return "login";
 	}
 
-	// µÇÂ¼
+	// ç™»å½•
 	@RequestMapping("/login")
 	public String login(User user, HttpServletResponse response,
-			HttpServletRequest request, Model model) throws IOException {
+			HttpServletRequest request,HttpSession session, Model model) throws IOException {
+		//éªŒè¯ç”¨æˆ·ä¿¡æ¯
 		boolean result = service.checkUserInfo(user);
+		//ç”¨æˆ·ä¸å­˜åœ¨
 		if (result == false) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print("<script language=\"javascript\">alert('ÓÃ»§Ãû»òÃÜÂë´íÎó!');</script>");
-			return "login";
+			out.flush();
+		    out.println("<script>");
+		    out.println("alert('ç”¨æˆ·åæˆ–å¯†ç é”™è¯¯!');");
+		    out.println("history.back();");
+		    out.println("</script>");
+			return null;
 		} else {
+			//ç”¨æˆ·å­˜åœ¨
+			//è·å–ç”¨æˆ·ä¿¡æ¯
 			User user_info = service.getUserInfo(user.getUsername());
-			// ÓÃ»§Ãû
-			request.setAttribute("person", user.getUsername());
-			// Ñ§ºÅ
-			request.setAttribute("number", user_info.getSid());
-			model.addAttribute("username", user.getUsername());
-			model.addAttribute("password", user.getPassword());
-			model.addAttribute("name", user_info.getName());
-			model.addAttribute("sid", user_info.getSid());
-			model.addAttribute("gid", user_info.getGid());
+			//è·å–gitlabä¸‹è½½åœ°å€
+			String address = groupService.getGitURL(user_info.getGid());
+			session.setAttribute("username", user_info.getUsername());
+			session.setAttribute("password", user_info.getPassword());
+			session.setAttribute("name", user_info.getName());
+			session.setAttribute("studentid", user_info.getSid());
+			session.setAttribute("groupid", user_info.getGid());
+			session.setAttribute("gitlab", address);
 			return "main";
 		}
 	}
 
-	// µÇÂ¼Ò³Ãæ×ª×¢²á
+	// ç™»å½•é¡µé¢è½¬æ³¨å†Œ
 	@RequestMapping("/register-turn")
 	public String register_turn(Model model) {
 		model.addAttribute("user_register", new User());
 		return "register";
 
 	}
-
+    //æ³¨å†Œ
 	@RequestMapping("/register")
 	public String register(User user_register, HttpServletResponse response, Model model)
 			throws IOException {
+		String temp=new String(user_register.getName().getBytes("ISO-8859-1"),"utf-8"); 
+		user_register.setName(temp);
 		String result = service.addUser(user_register);
-		// if (result.equals("·Ö×éÎª¿Õ")) {
-		// response.setContentType("text/html;charset=utf-8");
-		// PrintWriter out = response.getWriter();
-		// model.addAttribute("username", username);
-		// model.addAttribute("password", password);
-		// model.addAttribute("name", name);
-		// model.addAttribute("studentid", studentid);
-		// return "register";
 		if (result.equals("username_sid_failed")) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print("<script language=\"javascript\">alert('ÓÃ»§Ãû»òÑ§ºÅÒÑ±»×¢²á,ÇëÖ±½ÓµÇÂ¼!')</script>");
-			return "forward:/register-turn";
+			out.flush();
+		    out.println("<script>");
+		    out.println("alert('ç”¨æˆ·åæˆ–å­¦å·å·²è¢«æ³¨å†Œ,è¯·é‡æ–°æ³¨å†Œ!');");
+		    out.println("history.back();");
+		    out.println("</script>");
+			return null;
 		} else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
-			out.print("<script language=\"javascript\">alert('×¢²á³É¹¦,ÇëµÇÂ¼!')</script>");
-			return "forward:/sign_in";
+			out.flush();
+		    out.println("<script>");
+		    out.println("alert('æ³¨å†ŒæˆåŠŸ,è¯·ç™»å½•!');");
+		    out.println("history.back();");
+		    out.println("</script>");
+			return null;
 		}
 	}
 

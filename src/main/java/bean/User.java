@@ -10,7 +10,7 @@ public class User implements Serializable{
 	private String username;
 	private String password;
 	private String name;
-	private int sid;
+	private String sid;
 	private int gid;
 	
 	public String getUsername() {
@@ -29,11 +29,11 @@ public class User implements Serializable{
 		this.name = name;
 	}
 
-	public int getSid() {
+	public String getSid() {
 		return sid;
 	}
 
-	public void setSid(int sid) {
+	public void setSid(String sid) {
 		this.sid = sid;
 	}
 
@@ -41,11 +41,19 @@ public class User implements Serializable{
 		super();
 	}
 
-	public User(String name, String password) {
+	public User(String username, String password) {
 		super();
-		this.name = name;
+		this.username = username;
 		this.password = password;
 	}
+	/*
+	public User(String username, String password,String name,int sid,int gid) {
+		this.username=username;
+		this.password=password;
+		this.name = name;
+        this.sid=sid;
+        this.gid=gid;
+	}*/
 
 	public String getPassword() {
 		return password;

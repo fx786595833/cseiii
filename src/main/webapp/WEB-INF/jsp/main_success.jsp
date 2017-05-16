@@ -17,8 +17,8 @@
 </style>
 </head>
 <body>
-<%String user=(String)request.getAttribute("person");
-int num = Integer.parseInt(request.getAttribute("number") + "");
+<%//用户名和学号
+		String user = (String)session.getAttribute("username");
 %>
 <div class="message">教学支持系统</div>
 <div align=right style="font-size: 16px">
@@ -27,8 +27,8 @@ int num = Integer.parseInt(request.getAttribute("number") + "");
 </div>
 <div id="nav">
   <ul>
-    <li><a href="main?id=<%=user%>">提交作业</a></li>
-    <li><a href="person?id=<%=user%>">个人信息</a></li>
+    <li><a href="main?">提交作业</a></li>
+    <li><a href="person?">个人信息</a></li>
   </ul>
   <div style="clear:both"></div>
 </div>

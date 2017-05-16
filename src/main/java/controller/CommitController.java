@@ -7,6 +7,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
@@ -31,45 +32,28 @@ public class CommitController {
 
 	// 提交作业
 	@RequestMapping("/main")
-	public String main(HttpServletRequest request, Model model)
+	public String main(HttpServletRequest request, HttpSession session,Model model)
 			throws IOException {
-		String username = (String) request.getParameter("id");
-		User user_info = service.getUserInfo(username);
-		// 用户名
-		request.setAttribute("person", user_info.getUsername());
-		// 学号
-		request.setAttribute("number", user_info.getSid());
-		model.addAttribute("username", user_info.getUsername());
-		model.addAttribute("password", user_info.getPassword());
-		model.addAttribute("name", user_info.getName());
-		model.addAttribute("sid", user_info.getSid());
-		model.addAttribute("gid", user_info.getGid());
 		return "main";
 
 	}
 
 	// 个人信息
 	@RequestMapping("/person")
-	public String person(HttpServletRequest request, Model model)
+	public String person(HttpServletRequest request,HttpSession session, Model model)
 			throws IOException {
-		String username = (String) request.getParameter("id");
-		User user_info = service.getUserInfo(username);
-		String address = groupService.getGitURL(user_info.getGid());
-		// 用户名
-		request.setAttribute("person", user_info.getUsername());
-		// 学号
-		request.setAttribute("number", user_info.getSid());
-		String uname = "用户名:" + user_info.getUsername();
-		String password = "密码:" + user_info.getPassword();
-		String name = "姓名:" + user_info.getName();
-		String student = "学号:" + user_info.getSid();
-		String group = "分组:" + user_info.getGid();
+		String uname = "用户名:" + session.getAttribute("username");
+		String password = "密码:" + session.getAttribute("password");
+		String name = "姓名:" + session.getAttribute("name");
+		String student = "学号:" + session.getAttribute("studentid");
+		String group = "分组:" + session.getAttribute("groupid");
+		String gitlab = "项目地址:" + session.getAttribute("gitlab");
 		model.addAttribute("username", uname);
 		model.addAttribute("password", password);
 		model.addAttribute("name", name);
 		model.addAttribute("studentid", student);
 		model.addAttribute("group", group);
-		model.addAttribute("gitlab", address);
+		model.addAttribute("gitlab", gitlab);
 		return "person";
 
 	}

@@ -20,7 +20,7 @@ public class GroupDaoImp implements GroupDao {
 		}
 		return false;
 	}
-
+    //判断该分组是否已经存在
 	public boolean isGroupExist(int gid) {
 		Object args[] = new Object[] { gid };
 		List<Map<String, Object>> result = jdbcTemplate.queryForList(

@@ -9,22 +9,44 @@
 <meta http-equiv="Cache-Control" content="no-cache"> 
 <meta http-equiv="Expires" content="0"> 
 <title>教学支持系统注册</title> 
+<script type="text/javascript">
+	function beforeSubmit(form){
+		if(form.password.value!=form.checkpass.value){
+			alert('两次输入的密码不一致!');
+			form.password.focus();
+			return false;
+		}
+		if(form.sid.value.length!=9){
+			alert('学号格式不正确(9位)!');
+			form.sid.focus();
+			return false;
+		} 
+		if(form.gid.value=="0"){
+			alert('请选择分组!');
+			form.gid.focus();
+			return false;
+		} 
+	}
+</script>
 <link href="css/register.css" type="text/css" rel="stylesheet"> 
 </head> 
 <body> 
 <div class="register">
     <div class="message">教学支持系统注册</div>
     <div id="darkbannerwrap"></div>
-    <form:form commandName="user_register" action="register" method="post">
-		<form:input path="username" id="username" placeholder="用户名" required=""/>
+    <form:form commandName="user_register" action="register" method="post" onsubmit="return beforeSubmit(this);">
+		<form:input path="username" id="username" placeholder="用户名" required="true"/>
 		<hr class="hr15">
-		<form:password path="password" id="password" placeholder="密码" required=""/>
+		<form:input path="password" id="password" placeholder="密码" required="true"/>
 		<hr class="hr15">
-		<form:input path="name" id="name" placeholder="姓名" required=""/>
+		<input name="checkpass"  id="checkpass" placeholder="确认密码" required="true" type="text">
 		<hr class="hr15">
-		<form:input path="sid" id="sid" placeholder="学号" required=""/>
+		<form:input path="name" id="name" placeholder="姓名" required="true"/>
 		<hr class="hr15">
-		<form:select path="gid" id="gid" name="group"> 
+		<form:input path="sid" id="sid" placeholder="学号" required="true"/>
+		<hr class="hr15">
+		<form:select path="gid" id="gid" name="group">
+		<option value=0>选择分组</option> 
 		<option value=1>1</option>
 		<option value=2>2</option>
 		<option value=3>3</option>
@@ -94,8 +116,5 @@
 
 	
 </div>
-<%
-out.print("<script language=\"javascript\">alert('请选择分组后再提交注册!')</script>");
-%>
 </body>
 </html>

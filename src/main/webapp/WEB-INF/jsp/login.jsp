@@ -7,7 +7,7 @@
 <meta http-equiv="Pragma" content="no-cache"> 
 <meta http-equiv="Cache-Control" content="no-cache"> 
 <meta http-equiv="Expires" content="0"> 
-<title>教学支持系统登录</title> 
+<title>教学支持系统登录</title>
 <link href="css/login.css" type="text/css" rel="stylesheet"> 
 </head> 
 <body> 
@@ -15,9 +15,9 @@
     <div class="message">教学支持系统登录</div>
     <div id="darkbannerwrap"></div>
     <form:form commandName="user" action="login" method="post">
-		<form:input path="username" placeholder="用户名" required="" id="name"/>
+		<form:input path="username" placeholder="用户名" required="true" id="name"/>
 		<hr class="hr15">
-		<form:password path="password" placeholder="密码" required="" id="password"/>
+		<form:password path="password" placeholder="密码" required="true" id="password"/>
 		<hr class="hr15">
 		<input value="登录" style="width:100%;" type="submit">
 		<hr class="hr20">

@@ -36,8 +36,7 @@
 </head>
 <body>
 	<%
-		String user = (String) request.getAttribute("person");
-		int num = Integer.parseInt(request.getAttribute("number") + "");
+				String user = (String)session.getAttribute("username");
 	%>
 	<div class="message">教学支持系统</div>
 	<div align=right style="font-size: 16px">
@@ -45,32 +44,24 @@
 	</div>
 	<div id="nav">
 		<ul>
-			<li><a href="main?id=<%=user%>">提交作业</a></li>
-			<li><a href="person?id=<%=user%>">个人信息</a></li>
+			<li><a href="main?">提交作业</a></li>
+			<li><a href="person?">个人信息</a></li>
 		</ul>
 		<div style="clear: both"></div>
 	</div>
 	<div class="main_person">
 		<form>
-			<input name="username" type="text" value=${username
-				}
-				readonly="readonly">
+			<input name="username" type="text" value=${username} readonly="readonly">
 			<hr class="hr15">
-			<input name="password" type="text" value=${password
-				}
-				readonly="readonly">
+			<input name="password" type="text" value=${password} readonly="readonly">
 			<hr class="hr15">
 			<input name="name" type="text" value=${name } readonly="readonly">
 			<hr class="hr15">
-			<input name="studentid" type="text" value=${studentid
-				}
-				readonly="readonly">
+			<input name="studentid" type="text" value=${studentid} readonly="readonly">
 			<hr class="hr15">
 			<input name="group" type="text" value=${group } readonly="readonly">
 			<hr class="hr15">
-			<a style="color: #27A9E3; font-size: 16px">${gitlab}</a>
-
-
+			<input name="gitlab" type="text" value=${gitlab} readonly="readonly">
 		</form>
 	</div>
 </body>

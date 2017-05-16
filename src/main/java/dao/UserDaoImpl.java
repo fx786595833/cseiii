@@ -48,7 +48,8 @@ public class UserDaoImpl implements UserDao {
 		}
 		return false;
 	}
-
+    
+	//验证用户信息
 	public boolean checkUserInfo(User user) {
 		Object args[] = new Object[]{user.getUsername()};
 		List<Map<String,Object>> result = jdbcTemplate.queryForList(utility.SqlQuery.FIND_USER, args);
@@ -75,7 +76,8 @@ public class UserDaoImpl implements UserDao {
 		// TODO Auto-generated method stub
 		return false;
 	}
-
+    
+	//根据用户名获取用户信息
 	public User getUserInfo(String username) {
 		Object args[] = new Object[]{username};
 		List<Map<String,Object>> result = jdbcTemplate.queryForList(utility.SqlQuery.FIND_USER, args);
@@ -83,8 +85,7 @@ public class UserDaoImpl implements UserDao {
 		u.setUsername(result.get(0).get("username")+"");
 		u.setPassword(result.get(0).get("psw")+"");
 		u.setName(result.get(0).get("name")+"");
-		int sid = Integer.parseInt(result.get(0).get("sid")+"");
-		u.setSid(sid);
+		u.setSid(result.get(0).get("sid")+"");
 		int gid = Integer.parseInt(result.get(0).get("gid")+"");
 		u.setGid(gid);
 		return u;

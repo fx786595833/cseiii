@@ -35,9 +35,9 @@
 </style>
 </head>
 <body>
-	<%
-		String user = (String) request.getAttribute("person");
-		int num = Integer.parseInt(request.getAttribute("number") + "");
+	<%  
+	    //用户名
+		String user = (String)session.getAttribute("username");
 	%>
 	<div class="message">教学支持系统</div>
 	<div align=right style="font-size: 16px">
@@ -45,17 +45,23 @@
 	</div>
 	<div id="nav">
 		<ul>
-			<li><a href="main?id=<%=user%>">提交作业</a></li>
-			<li><a href="person?id=<%=user%>">个人信息</a></li>
+			<li><a href="main?">提交作业</a></li>
+			<li><a href="person?">个人信息</a></li>
 		</ul>
 		<div style="clear: both"></div>
 	</div>
 	<div class="main_main">
 		<form action="upload" method="post" enctype="multipart/form-data">
 			<select name="type" type="text">
-				<option value="0">选择文件类型(默认为文档)</option>
+				<option value="0">选择文件类型</option>
 				<option value="1">文档</option>
 				<option value="2">测试用例</option>
+			</select>
+			<hr class="hr15">
+			<select name="time" type="text">
+				<option value="0">选择迭代周期</option>
+				<option value="1">迭代一</option>
+				<option value="2">迭代二</option>
 			</select>
 			<hr class="hr15">
 			<input type="file" name="file" size="50" />

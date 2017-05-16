@@ -28,7 +28,7 @@ public class GitAdmin {
 	private static GitlabAPI api = GitlabAPI.connect(
 			utility.Server.GIT_ADDRESS, utility.Server.ADMIN_TOKEN);
 
-	public static boolean createUser(int id) {
+	public static boolean createUser(String id) {
 		try {
 			api.createUser(id + utility.Server.EMAIL_SUFFIX, id + "", id + "",
 					id + "", "", "", "", "", 10, "", "", "", false, true, true);
@@ -40,7 +40,7 @@ public class GitAdmin {
 		return true;
 	}
 
-	public static boolean createGroup(int sid, int gid) {
+	public static boolean createGroup(String sid, int gid) {
 		GitlabAPI memberApi = getConnection(sid);
 		if (memberApi != null) {
 			try {
@@ -60,7 +60,7 @@ public class GitAdmin {
 		return false;
 	}
 
-	public static boolean addGroupMember(String path, int sid) {
+	public static boolean addGroupMember(String path, String sid) {
 		GitlabAPI memberApi = getConnection(sid);
 		if (memberApi != null) {
 			try {
@@ -76,7 +76,7 @@ public class GitAdmin {
 		return true;
 	}
 
-	private static GitlabAPI getConnection(int sid) {
+	private static GitlabAPI getConnection(String sid) {
 		GitlabSession api;
 		GitlabAPI gitlabAPI = null;
 		try {

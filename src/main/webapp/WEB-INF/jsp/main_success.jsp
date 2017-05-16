@@ -34,10 +34,16 @@
 </div>
 <div class="main_main">
 <form action="upload" method="post" enctype="multipart/form-data">
-           <select name="type" type="text"> 
-			<option value="0">选择文件类型(默认为文档)</option> 
-			<option value="1">文档</option> 
-			<option value="2">测试用例</option> 
+          <select name="type" type="text">
+				<option value="0">选择文件类型</option>
+				<option value="1">文档</option>
+				<option value="2">测试用例</option>
+			</select>
+			<hr class="hr15">
+			<select name="time" type="text">
+				<option value="0">选择迭代周期</option>
+				<option value="1">迭代一</option>
+				<option value="2">迭代二</option>
 			</select>
 			<hr class="hr15">
            <input type="file" name="file" size="50" />
